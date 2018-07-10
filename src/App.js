@@ -10,7 +10,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    var pathParts = document.location.pathname.toString().split('/');
+    var pathParts = document.location.pathname.toString().replace('/too-many','').split('/');
     var path = pathParts.pop();
     while (pathParts.length>1 && path==='') {
       path = pathParts.pop();

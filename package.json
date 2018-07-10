@@ -1,7 +1,7 @@
 {
-  "name": "toomany",
+  "name": "too-many",
   "version": "0.1.0",
-  "homepage": "https://jasonverber.github.io/too-many-watermelons",
+  "homepage": "https://jasonverber.github.io/too-many",
   "private": true,
   "dependencies": {
     "gh-pages": "^1.2.0",
