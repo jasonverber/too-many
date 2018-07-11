@@ -120,6 +120,11 @@ button:focus, #createYourOwn:focus {
   min-height:2.5em;
 }
 
+.description .editableNew span::before {
+  content:"\A";
+  white-space:pre;
+}
+
 @media only screen and (max-width: 600px) {
     .editable, .editableItem, .editableNew, .editableItemNew, .neededItem, .haveItem, .item {
         width:8em !important;
