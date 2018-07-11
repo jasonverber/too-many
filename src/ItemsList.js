@@ -14,7 +14,7 @@ class Item extends Component {
 
   updateItem(obj) {
     var item = Object.assign(this.state.item, obj);
-    if (obj.name==='' && item.item) item.item='';
+    if (obj.name==='' && item.item && !item.req) item.item='';
     this.setState({item:item},()=>{
       this.state.updatedItem(item);
     })
@@ -92,7 +92,7 @@ class Items extends Component {
     }
 
     //If the updated row is blank, remove it.
-    if (!item.item && !item.name) {
+    if (!item.item && !item.name && !item.req) {
       items.splice(items.findIndex(o=>o.id===item.id),1);
     }
 
@@ -110,10 +110,11 @@ class Items extends Component {
     //If the updated item has a name associated with it, or is a requested item, insert or update as appropriate. Then setState.
     if (item && (item.name || item.req)) {
       dbItem = Object.assign({},item);
+      console.log(dbItem);
       dbItem.event_id = this.state.eventId;
       dbItem.done = (dbItem.name) ? true : false;
       var method = item.id.toString().indexOf('temp')===-1 ? 'put' : 'post';
-      fetch( 'http://localhost:8000/api/items/' + (method==='put'?item.id:''), {
+      fetch( '//watermelon.jasonverber.com/public/api/items' + (method==='put'?'/'+item.id:''), {
           method,
           headers: {
             'Accept': 'application/json',
@@ -129,8 +130,8 @@ class Items extends Component {
           this.persistCallback({items,tempIds});
         });
       //If the updated item has no name and no item associated with it then it should simply be deleted. Then setState.
-    } else if (item && !item.name && !item.item && item.id.toString().indexOf('temp')===-1) {
-      fetch( 'http://localhost:8000/api/items/' + item.id, {
+    } else if (item && !item.name && !item.req && !item.item && item.id.toString().indexOf('temp')===-1) {
+      fetch( '//watermelon.jasonverber.com/public/api/items/' + item.id, {
           method:'delete'
       })
       .then(response => {
@@ -143,7 +144,7 @@ class Items extends Component {
       dbItem = Object.assign({},reqItem);
       dbItem.event_id = this.state.eventId;
       dbItem.done = (dbItem.name) ? true : false;
-      fetch( 'http://localhost:8000/api/items/' + dbItem.id, {
+      fetch( '//watermelon.jasonverber.com/public/api/items/' + dbItem.id, {
           method:'put',
           headers: {
             'Accept': 'application/json',

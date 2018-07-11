@@ -7,15 +7,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
-    var pathParts = document.location.pathname.toString().replace('/too-many','').split('/');
-    var path = pathParts.pop();
-    while (pathParts.length>1 && path==='') {
-      path = pathParts.pop();
-    }
-    if (path!=='') fetch('http://localhost:8000/api/events/'+path)
+    window.addEventListener('hashchange', this.componentDidMount, false);
+    var path = document.location.hash.toString().replace('#','');
+    if (path) fetch('//watermelon.jasonverber.com/public/api/events/'+path)
     .then(response => {
         return response.json();
     })
@@ -41,9 +40,9 @@ class App extends Component {
       return (
         <div className="App">
           <header className="App-header">
-            <h1 className="App-title">Too Many Watermelons!</h1>
+            <h1 className="App-title"><a href="./">Too Many Watermelons!</a></h1>
             <h3>Stop! Coordinate and list-en...</h3>
-            <p>Keep track of what everybody is brining to avoid double dipping.</p>
+            <p>Keep track of what everybody is bringing to avoid double dipping.</p>
           </header>
             <NewEvent path={this.state.path} handler={this.new} />
         </div>
@@ -52,9 +51,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Too Many Watermelons!</h1>
+          <h1 className="App-title"><a href="./">Too Many Watermelons!</a></h1>
           <h3>Stop! Coordinate and list-en...</h3>
-          <p>Keep track of what everybody is brining to avoid double dipping.</p>
+          <p>Keep track of what everybody is bringing to avoid double dipping.</p>
         </header>
 
         {!(this.state.items)?(
@@ -64,6 +63,7 @@ class App extends Component {
           <h3>{this.state.name}</h3>
           <p>{this.state.description}</p>
           <Items eventId={this.state.eventId} items={this.state.items} />
+          <p><a id="createYourOwn" href="./">Create your own event!</a></p>
           </div>
         )}
 

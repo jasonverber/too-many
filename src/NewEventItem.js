@@ -22,7 +22,7 @@ class NewEventItem extends Component {
     }
     item.event_id = this.props.eventId;
     var method = (item.id.toString().indexOf('temp')===-1) ? 'put' : 'post';
-    fetch( 'http://localhost:8000/api/items/' + (method==='put' ? item.id : ''), {
+    fetch( '//watermelon.jasonverber.com/public/api/items' + (method==='put' ? '/'+item.id : ''), {
         method,
         headers: {
           'Accept': 'application/json',

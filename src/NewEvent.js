@@ -10,6 +10,7 @@ class NewEvent extends Component {
     this.updateEvent = this.updateEvent.bind(this);
     this.updateRow = this.updateRow.bind(this);
     this.persist = this.persist.bind(this);
+    this.newEvent = this.newEvent.bind(this);
   }
 
   componentDidMount() {
@@ -19,7 +20,7 @@ class NewEvent extends Component {
 
   async persist(event){
     event = this.state.event;
-    fetch( 'http://localhost:8000/api/events/' + (event.id?event.id:''), {
+    fetch( '//watermelon.jasonverber.com/public/api/events' + (event.id?('/'+event.id):''), {
         method:(event.id?'put':'post'),
         headers: {
           'Accept': 'application/json',
@@ -42,6 +43,10 @@ class NewEvent extends Component {
       this.setState(event);
   }
 
+  newEvent(){
+    this.setState({newEvent:true});
+  }
+
   makeSlug(length=8) {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -49,7 +54,7 @@ class NewEvent extends Component {
     for (var i = 0; i < length; i++)
       text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-    fetch('http://localhost:8000/api/events/'+text)
+    fetch('//watermelon.jasonverber.com/public/api/events/'+text)
       .then(response => {
           return response.json();
       })
@@ -78,9 +83,16 @@ class NewEvent extends Component {
   }
 
   render() {
+    if (!this.state.newEvent) return (
+      <div className="App-body NewEventPage">
+        <h3>Make planning easy!</h3>
+        <p id="about">No more signup sheets, group texts, or email chains - the next time you plan a party, potluck, or other event where people will bring a dish, just create an event here. That way, you can be sure you won{"''"}t be stuck with too many of anything!</p>
+        <button onClick={this.newEvent}>Create a new event!</button>
+      </div>
+    );
     var rows = this.state.items ? this.state.items.map(i=><NewEventItem key={i.id} item={i} handler={this.updateRow} eventId={this.state.event?this.state.event.id:null} persistEvent={this.persist} />) : '';
     return (
-      <div className="App-body">
+      <div className="App-body NewEventPage">
       {(this.props.path!=='')?(
         <div><h2>Event not found!</h2>
         <h3>Create a new one?</h3></div>
@@ -99,7 +111,7 @@ class NewEvent extends Component {
         editProps={{tabIndex:0}} /></p>
         <p><RIETextArea
           key='description'
-          className={'editable'+((this.state.event && this.state.event.description)?'':'New')}
+          className={'description editable'+((this.state.event && this.state.event.description)?'':'New')}
           classEditing='editing'
           value={(this.state.event && this.state.event.description) ? this.state.description:'Brief description of event'}
           change={this.updateEvent}
@@ -110,7 +122,7 @@ class NewEvent extends Component {
           <p>It would be great if somebody could bring...<br /><em>(One item per line.)</em></p>
         <ul>{rows}</ul>
         {this.state.event&&this.state.event.id?(
-          <p>Once you have finished, send this link to all your guests:<br /><a href={this.state.event.path}>{document.location.host+'/'+this.state.event.path}</a></p>
+          <p>Once you have finished, send this link to all your guests:<br /><a href={'#'+this.state.event.path}>{document.location.toString()+'#'+this.state.event.path}</a></p>
         ):(<span></span>) }
       </div>
     );

@@ -8,8 +8,9 @@ body {
 ul, li {list-style:none; margin:0; padding:0}
 
 ul {
-  margin:1em;
+  margin:1em 1em 3em 1em;
 }
+
 .App {
   background-color: #f44336;
   height:100vh
@@ -21,6 +22,8 @@ ul {
 }
 
 h1 {font-family: 'Shrikhand', cursive; margin:0; padding:.33em}
+h1 a {color:white;}
+p#about {width:30em; margin:3em auto 3em auto;}
 
 .App-title {
     background-color:green;
@@ -39,7 +42,6 @@ h1 {font-family: 'Shrikhand', cursive; margin:0; padding:.33em}
   margin:.5em;
   width:15em;
   border-bottom:solid 1px #000;
-  /* text-align:right */
 }
 
 .neededItem {
@@ -52,30 +54,88 @@ h1 {font-family: 'Shrikhand', cursive; margin:0; padding:.33em}
 
 .mark {
   background:yellow;
+  outline:yellow .5em solid;
+}
+
+input.mark {
+  outline-color:orange;
+  outline-offset:0em;
+  outline-width:.5em;
 }
 
 .editableNew, .editableItemNew {
   color:#aaa
 }
 
-.editableItem{
-  /* text-align:left; */
-}
-
 .editing, .editingItem {
   text-decoration:none;
+  border:none;
+  border-bottom: solid 1px;
   color:#000;
   width:15em;
-  margin-right:3em;
-  margin-left:3em;
-  font-size:.75em;
+  /* margin-right:3em; */
+  /* margin-left:3em; */
+  font-size:1em;
+  padding:0;
+  outline-color:green;
+  outline-offset:.25em;
+  outline-width:.25em;
+  margin-top:-.25em;
+  margin-bottom:-.25em;
+}
+
+.NewEventPage .editing {
+  margin-bottom:.5em !important;
+  margin-top:.5em !important;
 }
 
 input {
   text-align:center;
-  /* height:1.50em;
+}
+
+textarea {
+  text-align:center;
+}
+
+button, #createYourOwn {
+  border:solid .25em green;
+  padding:1em;
+  text-decoration:none;
+  color:black;
   font-size:.75em;
-  width:30em;
-  margin:.5em;
-  border-bottom:solid 1px transparent; */
+}
+
+button:hover, button:focus, #createYourOwn:hover, #createYourOwn:focus {
+  background-color:green;
+  color:white;
+}
+
+button:focus, #createYourOwn:focus {
+  outline-offset:.25em;
+  outline-width:.25em;
+  outline-color:green;
+}
+
+.description {
+  min-height:2.5em;
+}
+
+@media only screen and (max-width: 600px) {
+    .editable, .editableItem, .editableNew, .editableItemNew, .neededItem, .haveItem, .item {
+        width:8em !important;
+        margin:.5em .1em .5em .1em !important;
+    }
+    .editing, .editingItem {
+        width:8em !important;
+        margin:.5em .1em .5em .1em !important;
+    }
+    .App-body {
+      min-width:unset !important;
+      max-width:unset !important;
+      margin:0 !important;
+    }
+    .App-header{
+      padding-bottom:.1em !important;
+      height:unset !important;
+    }
 }
