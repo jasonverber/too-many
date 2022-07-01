@@ -21,8 +21,8 @@ ul {
   padding:unset !important;
 }
 
-h1 {font-family: 'Shrikhand', cursive; margin:0; padding:.33em}
-h1 a {color:white;}
+h1 {font-family: 'Original Surfer'; margin:0; padding:.33em}
+h1 a {color:white; text-decoration: none;}
 p#about {width:30em; margin:3em auto 3em auto;}
 
 .App-title {
